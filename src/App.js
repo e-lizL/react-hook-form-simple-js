@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { useForm } from "react-hook-form";
+import { useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function ReactHookSimpleJs() {
+  const [thanksMessage, setThanksMessage] = useState(false)
+  const { register, handleSubmit } = useForm();
+  const mySubmit = (data) => {
+    console.log(data);
+    setThanksMessage(true);
+  };
+
+  return(
+    <>
+    <h1>Simple React Hook Form using .js</h1>
+
+    <form onSubmit={handleSubmit(mySubmit)}>
+      <div>
+        <label>name</label>
+        <input {...register("name")} />
+      </div>
+
+      <div>
+        <label>email</label>
+        <input {...register("email")} />
+      </div>
+
+      <div>
+        <label>message</label>
+        <input {...register("message")} />
+      </div>
+
+      <input type="submit" />
+      </form>
+
+      {thanksMessage &&
+        <h2>Thanks for contacting us, we'll get back to you shortly.</h2>
+      }
+
+    </>
+  )
+  
 }
 
-export default App;
+
